@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pizza Hunt Premium Pro | Ultimate Suite 2026</title>
+    <style>
+        :root {
+            --primary-color: #ff4757;
+            --secondary-color: #ffa502;
+            --dark-color: #2f3542;
+            --light-color: #f1f2f6;
+            --bg-color: #fafafa;
+            --card-bg: white;
+            --text-color: #2f3542;
+            --success-color: #2ed573;
+            --whatsapp-color: #25D366;
+        }
+
+        [data-theme="dark"] {
+            --bg-color: #1e222b;
+            --card-bg: #2f3542;
+            --text-color: #f1f2f6;
+            --light-color: #3f4656;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            overflow-x: hidden;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        header {
+            background: var(--card-bg);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 5%;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .back-btn-nav {
+            background: #747d8c;
+            color: white;
+            border: none;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 12px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .cart-icon, .btn-custom-toggle, .loyalty-badge, .voice-btn, .support-nav-btn, .bulk-nav-btn {
+            cursor: pointer;
+            background: var(--primary-color);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            border: none;
+            font-size: 13px;
+            white-space: nowrap;
+        }
+
+        .btn-custom-toggle { background: var(--secondary-color); }
+        .voice-btn { background: #1e90ff; }
+        .support-nav-btn { background: #747d8c; }
+        .bulk-nav-btn { background: #a55eea; }
+        .loyalty-badge { background: #57606f; cursor: default; display: none; }
+
+        .login-btn-nav {
+            background: transparent;
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+            padding: 6px 18px;
+            border-radius: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        .theme-switch, .hamburger-btn {
+            background: none;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            color: var(--text-color);
+        }
+
+        .side-nav {
+            position: fixed;
+            top: 0;
+            right: -250px;
+            width: 250px;
+            height: 100%;
+            background: #2f3542;
+            z-index: 1001;
+            transition: 0.3s ease;
+            padding-top: 80px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .side-nav.active { right: 0; }
+        .side-nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+            padding: 10px 25px;
+            font-weight: 600;
+        }
+
+        .hero {
+            height: 45vh;
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1513104890138-7c749659a591?w=1350') no-repeat center center/cover;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+            margin-top: 60px;
+            padding: 0 20px;
+        }
+
+        .live-ticker-banner {
+            background: #2f3542; color: #ffa502; font-size: 13px; font-weight: 600; padding: 8px 10px; text-align: center; overflow: hidden; border-bottom: 2px solid var(--secondary-color);
+        }
+
+        .mode-container {
+            background: var(--card-bg); padding: 12px 25px; border-radius: 30px; margin: -25px auto 0; width: fit-content; box-shadow: 0 4px 15px rgba(0,0,0,0.1); display: flex; align-items: center; justify-content: center; gap: 15px; z-index: 10; position: relative; flex-wrap: wrap; text-align: center;
+        }
+
+        .location-detector-bar {
+            background: #eef2f7; padding: 10px 5%; display: flex; align-items: center; justify-content: space-between; gap: 10px; font-size: 13px; margin-top: 10px; border-bottom: 1px solid #ddd; flex-wrap: wrap;
+        }
+
+        .advanced-tracking-hub {
+            background: var(--card-bg); border-radius: 15px; max-width: 750px; margin: 30px auto; padding: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); display: none; border-top: 5px solid var(--primary-color);
+        }
+
+        .tracking-header-meta {
+            display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--light-color); padding-bottom: 15px; margin-bottom: 20px; flex-wrap: wrap; gap: 10px;
+        }
+
+        .live-status-bar-flow {
+            display: flex; justify-content: space-between; position: relative; margin-bottom: 25px;
+        }
+        .live-status-bar-flow::before {
+            content: ''; position: absolute; top: 15px; left: 5%; width: 90%; height: 4px; background: var(--light-color); z-index: 1;
+        }
+        .status-progress-fill {
+            position: absolute; top: 15px; left: 5%; width: 0%; height: 4px; background: var(--success-color); z-index: 2; transition: width 1s ease-in-out;
+        }
+
+        .node-point { position: relative; z-index: 3; text-align: center; width: 22%; }
+        .node-icon-circle {
+            width: 34px; height: 34px; background: var(--light-color); color: #888; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 8px; font-weight: bold; font-size: 14px; transition: 0.3s;
+        }
+        .node-point.completed .node-icon-circle { background: var(--success-color); color: white; box-shadow: 0 0 12px rgba(46, 213, 115, 0.4); }
+        .node-point.current-active .node-icon-circle { background: var(--secondary-color); color: white; animation: pulseGlow 1.5s infinite; }
+        .node-label { font-size: 11px; font-weight: 700; color: #777; }
+        .node-point.completed .node-label, .node-point.current-active .node-label { color: var(--text-color); }
+
+        @keyframes pulseGlow {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 165, 2, 0.4); }
+            70% { transform: scale(1.1); box-shadow: 0 0 0 10px rgba(255, 165, 2, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 165, 2, 0); }
+        }
+
+        .map-route-simulator {
+            width: 100%; height: 150px; background: #e0ece4; border: 1px solid #ccc; border-radius: 8px; margin-top: 15px; position: relative; overflow: hidden;
+        }
+        .map-road {
+            width: 90%; height: 6px; background: #7f8c8d; position: absolute; top: 50%; left: 5%; transform: translateY(-50%); border-radius: 3px;
+        }
+        .map-rider-icon {
+            font-size: 24px; position: absolute; top: 38%; left: 5%; transition: left 0.5s linear, top 0.5s linear; z-index: 10;
+        }
+        .map-home-icon { font-size: 24px; position: absolute; top: 38%; right: 5%; }
+        .live-gps-coordinates { position: absolute; bottom: 5px; left: 10px; font-size: 10px; background: rgba(0,0,0,0.6); color: #fff; padding: 2px 6px; border-radius: 4px; font-family: monospace; }
+
+        .delivery-rider-card {
+            background: var(--light-color); padding: 15px; border-radius: 10px; display: flex; align-items: center; gap: 15px; margin-top: 15px;
+        }
+        .rider-avatar { width: 45px; height: 45px; background: #ccc; border-radius: 50%; font-size: 22px; display: flex; align-items: center; justify-content: center; }
+
+        .filter-tabs { display: flex; justify-content: center; gap: 10px; margin: 30px 0 10px; flex-wrap: wrap; }
+        .tab-btn { background: var(--light-color); color: var(--text-color); border: none; padding: 8px 20px; border-radius: 20px; font-weight: 600; cursor: pointer; transition: 0.2s; }
+        .tab-btn.active-tab, .tab-btn:hover { background: var(--primary-color); color: white; }
+        
+        .wallet-dashboard { background: #e3faf1; border-left: 5px solid #2ed573; padding: 10px; border-radius: 6px; margin-bottom: 10px; font-size: 13px; font-weight: bold; color: #2f3542; }
+
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 2000; display: flex; justify-content: center; align-items: center; opacity: 0; pointer-events: none; transition: 0.3s ease; padding: 10px; }
+        .modal-overlay.active { opacity: 1; pointer-events: auto; }
+        .modal-content { background: var(--card-bg); width: 100%; max-width: 520px; padding: 25px; border-radius: 15px; position: relative; max-height: 90vh; overflow-y: auto; }
+        .close-modal { position: absolute; top: 15px; right: 20px; font-size: 28px; cursor: pointer; color: var(--text-color); }
+        .modal-back-btn { background: #747d8c; color: white; border: none; padding: 6px 15px; border-radius: 5px; margin-bottom: 15px; cursor: pointer; font-size: 12px; display: inline-flex; align-items: center; gap: 5px; font-weight: bold;}
+        
+        .menu-section { padding: 20px 5%; text-align: center; }
+        .lock-message { background: #ffe0e3; border: 2px dashed var(--primary-color); padding: 30px; border-radius: 15px; font-weight: bold; color: var(--primary-color); margin-top: 20px; cursor: pointer; }
+        .menu-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-top: 20px; }
+        .pizza-card { background: var(--card-bg); border-radius: 15px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.05); display: flex; flex-direction: column; justify-content: space-between; transition: 0.3s; border: 1px solid var(--light-color); }
+        .pizza-card:hover { transform: translateY(-3px); }
+        .pizza-img { width: 100%; height: 190px; object-fit: cover; }
+        .pizza-info { padding: 15px; text-align: left; }
+        .pizza-tag { font-size: 11px; font-weight: bold; padding: 3px 8px; border-radius: 5px; margin-right: 5px;}
+        .tag-veg { background: #2ed573; color: white; }
+        .tag-nonveg { background: #ff4757; color: white; }
+        .tag-dessert { background: #a55eea; color: white; }
+        .price-box { display: flex; justify-content: space-between; align-items: center; margin-top: 10px; }
+        .add-btn, .auth-submit-btn { background: var(--primary-color); color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-weight: bold; }
+        
+        .cart-sidebar { position: fixed; top: 0; right: -400px; width: 100%; max-width: 400px; height: 100%; background: var(--card-bg); box-shadow: -5px 0 15px rgba(0,0,0,0.1); z-index: 1001; transition: 0.3s; padding: 20px; display: flex; flex-direction: column; }
+        .cart-sidebar.active { right: 0; }
+        .cart-items { flex: 1; overflow-y: auto; margin-top: 15px; max-height: 200px; }
+        .cart-item { display: flex; justify-content: space-between; margin-bottom: 10px; border-bottom: 1px solid var(--light-color); padding-bottom: 5px; align-items: center;}
+        
+        .builder-layout { display: flex; gap: 20px; margin-top: 15px; flex-wrap: wrap; justify-content: center; }
+        .builder-controls { flex: 1; min-width: 200px; }
+        .builder-visualizer { width: 160px; height: 160px; background: #f39c12; border-radius: 50%; display: flex; position: relative; border: 8px dashed #d35400; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.2); margin: 0 auto; }
+        .left-half-pane { width: 50%; height: 100%; background: #f1c40f; border-right: 2px dashed #c0392b; display: flex; align-items: center; justify-content: center; font-size: 10px; color: #7f8c8d; font-weight: bold; text-align: center; padding: 2px; }
+        .right-half-pane { width: 50%; height: 100%; background: #f39c12; display: flex; align-items: center; justify-content: center; font-size: 10px; color: #7f8c8d; font-weight: bold; text-align: center; padding: 2px; }
+
+        .reviews-section { padding: 40px 5%; background: var(--card-bg); margin-top: 40px; border-radius: 20px; text-align: left; box-shadow: 0 -5px 20px rgba(0,0,0,0.02); }
+        .review-input, .support-input { padding: 12px; border: 1px solid var(--light-color); border-radius: 8px; background: var(--bg-color); color: var(--text-color); width: 100%; font-size: 14px; }
+        .reviews-feed { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; margin-top: 20px; }
+        .review-card { background: var(--bg-color); padding: 15px; border-radius: 10px; border-left: 4px solid var(--primary-color); }
+
+        footer { background: #2f3542; color: white; padding: 40px 5% 20px; margin-top: 50px; }
+        .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; }
+        .footer-col h4 { color: var(--secondary-color); margin-bottom: 15px; font-size: 16px; }
+        .footer-col p, .footer-col a { color: #a4b0be; text-decoration: none; font-size: 14px; line-height: 2; display: block; }
+
+        .support-chat-box { height: 180px; overflow-y: auto; border: 1px solid var(--light-color); padding: 10px; border-radius: 8px; background: var(--bg-color); margin-bottom: 10px; font-size: 13px; display: flex; flex-direction: column; gap: 8px; }
+        .msg-bot { background: #dfe4ea; color: #2f3542; padding: 6px 12px; border-radius: 12px 12px 12px 0; align-self: flex-start; max-width: 80%; }
+        .msg-user { background: var(--primary-color); color: white; padding: 6px 12px; border-radius: 12px 12px 0 12px; align-self: flex-end; max-width: 80%; }
+
+        .whatsapp-btn {
+            background-color: var(--whatsapp-color); color: white; border: none; padding: 10px 15px; border-radius: 8px; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 10px; width: 100%; font-size: 14px; text-decoration: none; transition: 0.2s;
+        }
+        .auth-input { padding: 12px; border: 1px solid var(--light-color); border-radius: 8px; background: var(--bg-color); color: var(--text-color); width: 100%; font-size: 14px; margin-bottom: 12px; }
+
+        .qr-wrapper-box {
+            background: #f8f9fa; border: 2px dashed #2ed573; padding: 15px; border-radius: 10px; margin: 10px 0; text-align: center;
+        }
+        .qr-image-frame { width: 150px; height: 150px; margin: 8px auto; display: block; border: 4px solid white; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+        .qr-meta-text { font-size: 12px; font-weight: bold; color: #2f3542; }
+
+        .cart-address-block, .payment-gateways-block {
+            background: #fdfefe; border: 1px solid #ddd; padding: 12px; border-radius: 8px; margin-top: 10px; display: none;
+        }
+        .gateway-tab-container { display: flex; gap: 5px; margin-top: 8px; }
+        .gateway-tab-btn { background: #e4e7eb; border: none; padding: 6px 10px; border-radius: 5px; font-size: 11px; cursor: pointer; font-weight: bold; flex: 1; text-align: center; }
+        .gateway-tab-btn.active-gate { background: var(--primary-color); color: white; }
+        .payment-input-group { margin-top: 8px; display: none; }
+
+        @media (max-width: 991px) {
+            .nav-buttons { display: none; }
+            .nav-buttons.mobile-active { display: flex; flex-direction: column; position: absolute; top: 60px; left: 0; width: 100%; background: var(--card-bg); padding: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); gap: 10px; z-index: 999; }
+            .nav-buttons.mobile-active button, .nav-buttons.mobile-active div { width: 100%; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="live-ticker-banner">
+        🔥 <span id="ticker-live-text">Rahul from Mumbai just ordered a Loaded Nutella Waffle Pizza!</span>
+    </div>
+
+    <header>
+        <div class="navbar">
+            <div class="logo">
+                <button class="back-btn-nav" onclick="window.history.back();">⬅ Back</button>
+                <span>🍕 Pizza Hunt Pro</span>
+            </div>
+            <button class="hamburger-btn" style="display: block;" onclick="toggleMobileMenu()">☰</button>
+            <div id="main-nav-buttons" class="nav-buttons">
+                <span id="loyalty-display" class="loyalty-badge">🪙 0 Coins</span>
+                <button class="bulk-nav-btn" onclick="toggleBulkModal()">🏢 Party Planner</button>
+                <button class="support-nav-btn" onclick="toggleSupportModal()">❤️ Help & Support</button>
+                <button class="voice-btn" onclick="startVoiceRecognition()">🎙️ Voice Order</button>
+                <button class="theme-switch" onclick="toggleDarkMode()">🌓</button>
+                <button class="btn-custom-toggle" onclick="toggleCustomBuilderModal()">🛠️ Half & Half Builder</button>
+                <button id="auth-nav-btn" class="login-btn-nav" onclick="toggleAuthModal()">Login / Register</button>
+                <div class="cart-icon" onclick="toggleCart()">Cart (<span id="cart-count">0</span>)</div>
+                <button class="hamburger-btn" onclick="toggleSideNav()">📋 Links</button>
+            </div>
+        </div>
+    </header>
+
+    <nav id="side-nav" class="side-nav">
+        <span class="close-modal" style="color: white; top: 20px;" onclick="toggleSideNav()">&times;</span>
+        <a href="#home" onclick="toggleSideNav()">🏠 Home</a>
+        <a href="#menu" onclick="toggleSideNav()">🍕 Menu Sheet</a>
+        <a href="#reviews-zone" onclick="toggleSideNav()">⭐ Customer Reviews</a>
+    </nav>
+
+    <section id="home" class="hero">
+        <h1>Next-Gen Automated Kitchen</h1>
+        <p>Pre-Order Dispatch Logistics & Global Fusion Menu Modules Online!</p>
+    </section>
+
+    <div class="location-detector-bar">
+        <div>
+            📍 <strong>Delivery Node Location:</strong> <span id="gps-address-node" style="color: #555;">Not Detected</span>
+        </div>
+        <button class="add-btn" style="padding: 4px 10px; font-size: 11px;" onclick="fetchUserGPSLocation()">Detect Via GPS Auto</button>
+    </div>
+
+    <div class="mode-container">
+        <label style="font-weight: bold; font-size:13px; cursor: pointer;">
+            <input type="checkbox" id="lightning-toggle" onchange="toggleLightningMode()"> ⚡ 15-Min Rush Mode (+₹49)
+        </label>
+        <span class="hidden-xs">|</span>
+        <label style="font-weight: bold; font-size:13px;">
+            🕒 Schedule Order:
+            <select id="delivery-schedule-node" onchange="verifySchedulerTimeline()" style="padding:4px; border-radius:10px; background: var(--bg-color); color: var(--text-color);">
+                <option value="now">Deliver Now (Instant)</option>
+                <option value="slot1">Schedule: 06:00 PM - 07:00 PM</option>
+                <option value="slot2">Schedule: 08:00 PM - 09:00 PM</option>
+            </select>
+        </label>
+    </div>
+
+    <!-- 🎯 Live Dispatch Console -->
+    <div id="order-tracking-hub" class="advanced-tracking-hub">
+        <div class="tracking-header-meta">
+            <div>
+                <h3 style="color: var(--primary-color);">🎯 Live Dispatch Console</h3>
+                <small style="color:#666;">Order Hash: <strong id="order-id-display">#PZ-883192</strong></small>
+            </div>
+            <div style="text-align: right;">
+                <span id="live-eta-countdown" style="font-size: 20px; font-weight: 800; color: var(--success-color);">ETA: 30 Mins</span>
+                <br><small id="tracking-mode-indicator" style="color: #888;">Standard Air Route</small>
+            </div>
+        </div>
+
+        <div class="live-status-bar-flow">
+            <div class="status-progress-fill" id="status-progress-fill"></div>
+            <div class="node-point" id="track-node-1"><div class="node-icon-circle">✔</div><div class="node-label">Placed</div></div>
+            <div class="node-point" id="track-node-2"><div class="node-icon-circle">🍳</div><div class="node-label">Baking</div></div>
+            <div class="node-point" id="track-node-3"><div class="node-icon-circle">🛵</div><div class="node-label">Out</div></div>
+            <div class="node-point" id="track-node-4"><div class="node-icon-circle">🏠</div><div class="node-label">Arrived</div></div>
+        </div>
+
+        <div class="map-route-simulator">
+            <div class="map-road"></div>
+            <div id="live-map-rider" class="map-rider-icon">🛵</div>
+            <div class="map-home-icon">🏠</div>
+            <div id="live-gps-coords" class="live-gps-coordinates">GPS Nodes: Calculating Route Matrix...</div>
+        </div>
+
+        <div class="delivery-rider-card">
+            <div class="rider-avatar">🛵</div>
+            <div>
+                <h5 style="margin-bottom:2px;" id="rider-name-node">Rider Assigning...</h5>
+                <p style="font-size:11px; color:#666;">Contact Node: +91 98765XXXXX | Partner Fleet</p>
+            </div>
+        </div>
+    </div>
+
+    <section id="menu" class="menu-section">
+        <div id="lock-screen" class="lock-message" onclick="toggleAuthModal()">
+            🔒 Please sign in to synchronize the advanced calorie grids and interactive product store.
+        </div>
+
+        <div id="main-content-wrapper" style="display:none;">
+            <div class="filter-tabs">
+                <button class="tab-btn active-tab" onclick="filterCategory('all', this)">All Items</button>
+                <button class="tab-btn" onclick="filterCategory('veg', this)">💚 Veg Specials</button>
+                <button class="tab-btn" onclick="filterCategory('nonveg', this)">❤️ Non-Veg Blast</button>
+                <button class="tab-btn" onclick="filterCategory('dessert', this)">🍫 Sweet Desserts</button>
+            </div>
+
+            <div class="menu-container">
+                <!-- item 1 -->
+                <div class="pizza-card item-card veg">
+                    <img src="https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=500" class="pizza-img">
+                    <div class="pizza-info">
+                        <span class="pizza-tag tag-veg">Veg</span>
+                        <h3>Margherita Classic</h3>
+                        <p style="font-size:12px; color:#777;">Organic cheese melt base. [~280 kcal]</p>
+                        <div class="price-box"><span>₹199</span><button class="add-btn" onclick="addToCart('Margherita Classic', 199, 280)">Add</button></div>
+                    </div>
+                </div>
+
+                <!-- item 2 (UPDATED WITH EXCLUSIVE LIVE IMAGE) -->
+                <div class="pizza-card item-card veg">
+                    <img src="https://images.unsplash.com/photo-1544982503-9f984c14501a?w=500" class="pizza-img">
+                    <div class="pizza-info">
+                        <span class="pizza-tag tag-veg">Veg | Best Seller</span>
+                        <h3>Double Cheese Margherita Matrix</h3>
+                        <p style="font-size:12px; color:#777;">Liquid cheese burst layer with double mozzarella explosion. [~440 kcal]</p>
+                        <div class="price-box"><span>₹299</span><button class="add-btn" onclick="addToCart('Double Cheese Margherita Matrix', 299, 440)">Add</button></div>
+                    </div>
+                </div>
+
+                <!-- item 3 -->
+                <div class="pizza-card item-card nonveg">
+                    <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?w=500" class="pizza-img">
+                    <div class="pizza-info">
+                        <span class="pizza-tag tag-nonveg">Non-Veg</span>
+                        <h3>Spicy Chicken Blast</h3>
+                        <p style="font-size:12px; color:#777;">Tandoori chicken strip matrix. [~390 kcal]</p>
+                        <div class="price-box"><span>₹399</span><button class="add-btn" onclick="addToCart('Spicy Chicken Blast', 399, 390)">Add</button></div>
+                    </div>
+                </div>
+
+                <!-- item 4 -->
+                <div class="pizza-card item-card nonveg">
+                    <img src="https://images.unsplash.com/photo-1628840042765-356cda07504e?w=500" class="pizza-img">
+                    <div class="pizza-info">
+                        <span class="pizza-tag tag-nonveg">Premium Meat</span>
+                        <h3>Smoked Pepperoni Feast</h3>
+                        <p style="font-size:12px; color:#777;">Smoked premium pepperoni layers with exotic Italian herbs. [~490 kcal]</p>
+                        <div class="price-box"><span>₹450</span><button class="add-btn" onclick="addToCart('Smoked Pepperoni Feast', 450, 490)">Add</button></div>
+                    </div>
+                </div>
+
+                <!-- item 5 -->
+                <div class="pizza-card item-card veg">
+                    <img src="https://images.unsplash.com/photo-1593560708920-61dd98c46a4e?w=500" class="pizza-img">
+                    <div class="pizza-info">
+                        <span class="pizza-tag tag-veg">Smokey</span>
+                        <h3>Paneer Tikka Charcoal Pizza</h3>
+                        <p style="font-size:12px; color:#777;">Activated charcoal black crust with fire paneer. [~360 kcal]</p>
+                        <div class="price-box"><span>₹349</span><button class="add-btn" onclick="addToCart('Paneer Tikka Charcoal Pizza', 349, 360)">Add</button></div>
+                    </div>
+                </div>
+
+                <!-- item 6 -->
+                <div class="pizza-card item-card dessert">
+                    <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=500" class="pizza-img">
+                    <div class="pizza-info">
+                        <span class="pizza-tag tag-dessert">🍫 Dessert Special</span>
+                        <h3>Loaded Nutella Waffle Pizza</h3>
+                        <p style="font-size:12px; color:#777;">Fluffy waffle base slathered with deep dark Nutella and white choco chips. [~510 kcal]</p>
+                        <div class="price-box"><span>₹249</span><button class="add-btn" onclick="addToCart('Loaded Nutella Waffle Pizza', 249, 510)">Add</button></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 🛠️ Half & Half Builder Modal -->
+    <div id="custom-builder-modal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-back-btn" onclick="toggleCustomBuilderModal()">⬅ Back</button>
+            <span class="close-modal" onclick="toggleCustomBuilderModal()">&times;</span>
+            <h3>🍕 Interactive Half & Half Engine</h3>
+            <div class="builder-layout">
+                <div class="builder-controls">
+                    <h4>Select Core Base</h4>
+                    <select id="pizza-crust" onchange="calculateCustomPrice()" style="width:100%; padding:8px; margin-bottom:12px;">
+                        <option value="200">Hand Tossed Premium (₹200)</option>
+                        <option value="300">Bursting Cheese Liquefied (+₹100)</option>
+                    </select>
+                    <h4 style="color:#2ed573;">Left Half</h4>
+                    <select id="left-half-select" onchange="calculateCustomPrice()" style="width:100%; padding:6px; margin-bottom:10px;">
+                        <option value="0">Plain Cheese Base</option>
+                        <option value="50">Spicy Paneer Matrix (+₹50)</option>
+                    </select>
+                    <h4 style="color:#ffa502;">Right Half</h4>
+                    <select id="right-half-select" onchange="calculateCustomPrice()" style="width:100%; padding:6px; margin-bottom:12px;">
+                        <option value="0">Plain Cheese Base</option>
+                        <option value="80">BBQ Shredded Chicken (+₹80)</option>
+                    </select>
+                </div>
+                <div style="display: flex; align-items: center; justify-content: center;">
+                    <div id="pizza-canvas" class="builder-visualizer">
+                        <div id="gui-left-pane" class="left-half-pane">Plain Cheese</div>
+                        <div id="gui-right-pane" class="right-half-pane">Plain Cheese</div>
+                    </div>
+                </div>
+            </div>
+            <div style="margin-top:15px; font-weight:bold; font-size:15px;">Calculated Core Price: <span id="custom-calculated-price">₹200</span></div>
+            <button class="auth-submit-btn" style="width:100%; margin-top:10px;" onclick="addCustomPizzaToCart()">Inject Custom Fusion To Cart</button>
+        </div>
+    </div>
+
+    <!-- 🏢 Bulk Planner Modal -->
+    <div id="bulk-order-modal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-back-btn" onclick="toggleBulkModal()">⬅ Back</button>
+            <span class="close-modal" onclick="toggleBulkModal()">&times;</span>
+            <h3>🎉 Corporate & Bulk Party Planner</h3>
+            <form onsubmit="calculateBulkCateringSlab(event)" style="display:flex; flex-direction:column; gap:10px;">
+                <input type="number" id="bulk-qty" class="review-input" placeholder="Estimated Headcount / Quantity (Min 15)" min="15" required>
+                <button type="submit" class="auth-submit-btn" style="background:#a55eea">Analyze Slab Rate</button>
+            </form>
+            <div id="bulk-slab-result" style="margin-top:15px; font-weight:bold; color:var(--success-color);"></div>
+        </div>
+    </div>
+
+    <!-- 🔒 Authentication Modal -->
+    <div id="auth-modal" class="modal-overlay">
+        <div class="modal-content">
+            <span class="close-modal" onclick="toggleAuthModal()">&times;</span>
+            <h3>Secure Access Client</h3>
+            <form onsubmit="handleAuthSubmit(event)">
+                <input type="email" id="auth-email" class="auth-input" placeholder="Enter security email" required>
+                <input type="password" id="auth-pass" class="auth-input" placeholder="Secure Password" required>
+                <button type="submit" class="auth-submit-btn" style="width:100%;">Authenticate Gateway</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- ❤️ Help & Support Modal -->
+    <div id="support-modal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-back-btn" onclick="toggleSupportModal()">⬅ Back</button>
+            <span class="close-modal" onclick="toggleSupportModal()">&times;</span>
+            <h3>❤️ Live Operations Hub</h3>
+            <div id="chat-box" class="support-chat-box"><div class="msg-bot">Hello! How can I assist you today?</div></div>
+            <div style="display:flex; gap:5px;"><input type="text" id="support-msg-input" class="support-input" placeholder="Type complaint..."><button class="add-btn" onclick="sendSupportMessage()">Send</button></div>
+            <a href="https://wa.me/919307754609" target="_blank" class="whatsapp-btn">💬 Escalation via WhatsApp Node</a>
+        </div>
+    </div>
+
+    <!-- 🛒 Shopping Cart Sidebar -->
+    <div id="cart-sidebar" class="cart-sidebar">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+            <button class="modal-back-btn" style="margin:0;" onclick="toggleCart()">⬅ Back</button>
+            <h3>Your Smart Cart</h3>
+        </div>
+        <div class="wallet-dashboard" style="margin-top: 10px;">
+            💰 Shop Wallet Fund: <span id="wallet-balance-node">₹120</span>
+            <label style="display:block; font-size:11px; margin-top:4px; font-weight:normal; cursor:pointer;">
+                <input type="checkbox" id="wallet-deduct-toggle" onchange="updateCartUI()"> Deduct Wallet Credit
+            </label>
+        </div>
+
+        <div id="cart-items" class="cart-items"></div>
+
+        <!-- 📍 Address Module -->
+        <div id="cart-address-block" class="cart-address-block">
+            <strong style="font-size:12px; color:var(--primary-color);">📍 Complete Delivery Address</strong>
+            <input type="text" id="cust-house" class="review-input" style="padding:6px; margin-top:5px; font-size:12px;" placeholder="Flat / House No. / Building" required>
+            <input type="text" id="cust-locality" class="review-input" style="padding:6px; margin-top:5px; font-size:12px;" placeholder="Locality / Area Name" required>
+            <input type="number" id="cust-pincode" class="review-input" style="padding:6px; margin-top:5px; font-size:12px;" placeholder="6-Digit Pincode" required>
+        </div>
+
+        <!-- 💳 Payment Gateways Module -->
+        <div id="payment-gateways-block" class="payment-gateways-block">
+            <strong style="font-size:12px; color:var(--success-color);">💳 Select Payment Node</strong>
+            <div class="gateway-tab-container">
+                <button class="gateway-tab-btn active-gate" id="tab-qr" onclick="switchPaymentTab('qr')">UPI QR</button>
+                <button class="gateway-tab-btn" id="tab-nb" onclick="switchPaymentTab('nb')">Net Banking</button>
+                <button class="gateway-tab-btn" id="tab-card" onclick="switchPaymentTab('card')">Card Pay</button>
+            </div>
+
+            <div id="gate-qr-area" class="payment-input-group" style="display:block; text-align:center;">
+                <div class="qr-wrapper-box" style="padding:8px; margin-top:8px;">
+                    <div class="qr-meta-text">SCAN BY ANY UPI APP TO PAY</div>
+                    <img id="dynamic-payment-qr" src="" class="qr-image-frame" style="width:130px; height:130px;" alt="Active QR">
+                    <div style="font-size:11px; color:#2ed573; font-weight:bold;">Merchant: 9307754609@axl</div>
+                    <a id="upi-direct-link" href="#" class="add-btn" style="display:inline-block; font-size:11px; padding:4px 8px; margin-top:5px; text-decoration:none;">Pay via Mobile App</a>
+                </div>
+            </div>
+
+            <div id="gate-nb-area" class="payment-input-group">
+                <select id="nb-bank-select" class="review-input" style="padding:6px; font-size:12px; margin-top:5px;">
+                    <option value="">-- Select Bank Node --</option>
+                    <option value="sbi">State Bank of India</option>
+                    <option value="hdfc">HDFC Bank</option>
+                    <option value="icici">ICICI Bank</option>
+                </select>
+            </div>
+
+            <div id="gate-card-area" class="payment-input-group">
+                <input type="text" id="card-num" class="review-input" style="padding:6px; font-size:12px; margin-top:5px;" placeholder="16 Digit Card Number" maxlength="16">
+                <div style="display:flex; gap:5px;">
+                    <input type="text" id="card-exp" class="review-input" style="padding:6px; font-size:12px; margin-top:5px;" placeholder="MM/YY" maxlength="5">
+                    <input type="password" id="card-cvv" class="review-input" style="padding:6px; font-size:12px; margin-top:5px;" placeholder="CVV" maxlength="3">
+                </div>
+            </div>
+        </div>
+
+        <div style="margin-top: 10px; border-top: 1px solid var(--light-color); padding-top: 10px;">
+            <div style="display:flex; justify-content:space-between; font-weight:bold; margin-bottom:8px;">
+                <span>Total Payable Amount:</span>
+                <span id="cart-total-price">₹0</span>
+            </div>
+            <button class="auth-submit-btn" style="width:100%; font-size:14px;" onclick="processOrderCheckout()">Verify & Secure Dispatch</button>
+        </div>
+    </div>
+
+    <script>
+        let IS_LOGGED_IN = false;
+        let GLOBAL_CART = [];
+        let RUSH_MODE = false;
+        let WALLET_BALANCE = 120;
+        let MAP_ANIMATION_INTERVAL = null;
+        let ACTIVE_PAYMENT_METHOD = 'qr';
+
+        function toggleMobileMenu() { document.getElementById('main-nav-buttons').classList.toggle('mobile-active'); }
+        function toggleSideNav() { document.getElementById('side-nav').classList.toggle('active'); }
+        function toggleDarkMode() {
+            const body = document.body;
+            body.getAttribute('data-theme') === 'dark' ? body.removeAttribute('data-theme') : body.setAttribute('data-theme', 'dark');
+        }
+        function toggleAuthModal() { document.getElementById('auth-modal').classList.toggle('active'); }
+        function toggleCustomBuilderModal() { if(verifyAccessGate()) document.getElementById('custom-builder-modal').classList.toggle('active'); }
+        function toggleBulkModal() { document.getElementById('bulk-order-modal').classList.toggle('active'); }
+        function toggleSupportModal() { document.getElementById('support-modal').classList.toggle('active'); }
+        function toggleCart() { document.getElementById('cart-sidebar').classList.toggle('active'); }
+
+        function verifyAccessGate() {
+            if(!IS_LOGGED_IN) { alert("Access Denied. Please Login first."); toggleAuthModal(); return false; }
+            return true;
+        }
+
+        function handleAuthSubmit(e) {
+            e.preventDefault();
+            IS_LOGGED_IN = true;
+            document.getElementById('lock-screen').style.display = 'none';
+            document.getElementById('main-content-wrapper').style.display = 'block';
+            document.getElementById('loyalty-display').style.display = 'inline-block';
+            document.getElementById('auth-nav-btn').innerText = "Account: Active Node";
+            toggleAuthModal();
+        }
+
+        function fetchUserGPSLocation() {
+            document.getElementById('gps-address-node').innerText = "Locating coordinates...";
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition((pos) => {
+                    document.getElementById('gps-address-node').innerText = `Lat: ${pos.coords.latitude.toFixed(4)}, Lon: ${pos.coords.longitude.toFixed(4)}`;
+                }, () => { document.getElementById('gps-address-node').innerText = "Andheri East Node, Mumbai Hub (Fallback IP)"; });
+            }
+        }
+
+        function toggleLightningMode() {
+            RUSH_MODE = document.getElementById('lightning-toggle').checked;
+            document.getElementById('tracking-mode-indicator').innerText = RUSH_MODE ? "⚡ Lightning Logistics Hyper-Route" : "Standard Air Route";
+            document.getElementById('live-eta-countdown').innerText = RUSH_MODE ? "ETA: 15 Mins" : "ETA: 30 Mins";
+            updateCartUI();
+        }
+
+        function verifySchedulerTimeline() {
+            let slot = document.getElementById('delivery-schedule-node').value;
+            if(slot !== 'now') alert(`Pipeline Shift Registered: ${slot}`);
+        }
+
+        function filterCategory(cat, btn) {
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active-tab'));
+            if(btn) btn.classList.add('active-tab');
+            document.querySelectorAll('.item-card').forEach(card => card.style.display = (cat === 'all' || card.classList.contains(cat)) ? 'flex' : 'none');
+        }
+
+        function calculateCustomPrice() {
+            let total = parseInt(document.getElementById('pizza-crust').value) + parseInt(document.getElementById('left-half-select').value);
+            document.getElementById('custom-calculated-price').innerText = `₹${total}`;
+        }
+
+        function addCustomPizzaToCart() {
+            addToCart('Custom Half-Half Pizza', 250, 450);
+            toggleCustomBuilderModal();
+        }
+
+        function calculateBulkCateringSlab(e) {
+            e.preventDefault();
+            document.getElementById('bulk-slab-result').innerText = `🎯 System Quote: Authorized 20% Discount unlocked!`;
+        }
+
+        function addToCart(name, price, calories) {
+            GLOBAL_CART.push({ name, price, calories });
+            updateCartUI();
+        }
+
+        function removeCartItem(idx) {
+            GLOBAL_CART.splice(idx, 1);
+            updateCartUI();
+        }
+
+        function switchPaymentTab(type) {
+            ACTIVE_PAYMENT_METHOD = type;
+            document.querySelectorAll('.gateway-tab-btn').forEach(b => b.classList.remove('active-gate'));
+            document.querySelectorAll('.payment-input-group').forEach(p => p.style.display = 'none');
+            document.getElementById(`tab-${type}`).classList.add('active-gate');
+            document.getElementById(`gate-${type}-area`).style.display = 'block';
+        }
+
+        function updateCartUI() {
+            document.getElementById('cart-count').innerText = GLOBAL_CART.length;
+            let container = document.getElementById('cart-items');
+            container.innerHTML = '';
+            
+            let baseSubtotal = 0;
+            GLOBAL_CART.forEach((item, idx) => {
+                baseSubtotal += item.price;
+                container.innerHTML += `
+                    <div class="cart-item">
+                        <div><strong>${item.name}</strong><br><small style="color:#888;">🔥 ${item.calories} kcal</small></div>
+                        <div><span>₹${item.price}</span><span style="color:red; margin-left:10px; cursor:pointer;" onclick="removeCartItem(${idx})">&times;</span></div>
+                    </div>
+                `;
+            });
+
+            let addrBlock = document.getElementById('cart-address-block');
+            let payBlock = document.getElementById('payment-gateways-block');
+            
+            if(GLOBAL_CART.length > 0) {
+                addrBlock.style.display = 'block';
+                payBlock.style.display = 'block';
+            } else {
+                addrBlock.style.display = 'none';
+                payBlock.style.display = 'none';
+            }
+
+            if(RUSH_MODE && GLOBAL_CART.length > 0) baseSubtotal += 49;
+            if(document.getElementById('wallet-deduct-toggle').checked && GLOBAL_CART.length > 0) {
+                baseSubtotal = Math.max(0, baseSubtotal - WALLET_BALANCE);
+            }
+
+            document.getElementById('cart-total-price').innerText = `₹${baseSubtotal}`;
+            
+            let qrImg = document.getElementById('dynamic-payment-qr');
+            let upiLinkNode = document.getElementById('upi-direct-link');
+            
+            if(baseSubtotal > 0) {
+                let encodedUpiString = `upi://pay?pa=9307754609@axl&pn=PizzaHuntPro%20Merchant&am=${baseSubtotal}&tn=OrderSecurePayment&cu=INR`;
+                qrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(encodedUpiString)}`;
+                upiLinkNode.href = encodedUpiString;
+            }
+        }
+
+        function sendSupportMessage() {
+            let inp = document.getElementById('support-msg-input');
+            if(!inp.value) return;
+            document.getElementById('chat-box').innerHTML += `<div class="msg-user">${inp.value}</div>`;
+            inp.value = '';
+        }
+
+        function processOrderCheckout() {
+            if(GLOBAL_CART.length === 0) return alert("Cart is empty.");
+            let house = document.getElementById('cust-house').value;
+            let locality = document.getElementById('cust-locality').value;
+            let pin = document.getElementById('cust-pincode').value;
+            if(!house || !locality || !pin) return alert("Please fill complete shipment delivery address details.");
+
+            if(ACTIVE_PAYMENT_METHOD === 'nb') {
+                if(!document.getElementById('nb-bank-select').value) return alert("Please choose your operational Active Net Banking node.");
+            } else if (ACTIVE_PAYMENT_METHOD === 'card') {
+                if(document.getElementById('card-num').value.length < 16) return alert("Invalid Credit/Debit Card configuration.");
+            }
+
+            alert("Real Payment Pipeline Token Confirmed! Dispatching Order.");
+            toggleCart();
+            triggerLiveTrackingSimulation();
+        }
+
+        function triggerLiveTrackingSimulation() {
+            let hub = document.getElementById('order-tracking-hub');
+            hub.style.display = 'block';
+            hub.scrollIntoView({ behavior: 'smooth' });
+
+            let fill = document.getElementById('status-progress-fill');
+            let rider = document.getElementById('live-map-rider');
+            let nameNode = document.getElementById('rider-name-node');
+            let gpsText = document.getElementById('live-gps-coords');
+
+            fill.style.width = '0%'; rider.style.left = '5%'; rider.style.top = '38%';
+            nameNode.innerText = "Assigning Smart Fleet Agent...";
+            if(MAP_ANIMATION_INTERVAL) clearInterval(MAP_ANIMATION_INTERVAL);
+
+            MAP_ANIMATION_INTERVAL = setInterval(() => {
+                let currentLeft = parseFloat(rider.style.left) || 5;
+                if(currentLeft < 85) {
+                    let nextLeft = currentLeft + 3;
+                    rider.style.left = nextLeft + '%';
+                    rider.style.top = (38 + Math.sin(nextLeft) * 10) + '%';
+                    gpsText.innerText = `📦 [LIVE SIMULATION] Lat: ${(19.11 + nextLeft*0.001).toFixed(4)}° N | Lon: ${(72.86 + nextLeft*0.001).toFixed(4)}° E`;
+                } else { clearInterval(MAP_ANIMATION_INTERVAL); }
+            }, 400);
+
+            setTimeout(() => { document.getElementById('track-node-1').className = 'node-point completed'; fill.style.width = '25%'; }, 1000);
+            setTimeout(() => { document.getElementById('track-node-2').className = 'node-point completed current-active'; fill.style.width = '50%'; nameNode.innerText = "Chef Somesh (Kitchen Node)"; }, 4000);
+            setTimeout(() => { document.getElementById('track-node-3').className = 'node-point completed current-active'; fill.style.width = '75%'; nameNode.innerText = "Rider Mahendra | +91 9307754609"; }, 8000);
+            setTimeout(() => { document.getElementById('track-node-4').className = 'node-point completed'; fill.style.width = '100%'; nameNode.innerText = "Delivered"; gpsText.innerText = "Package Delivered!"; }, 12000);
+        }
+
+        function startVoiceRecognition() { alert("Microphone engine initialization."); }
+    </script>
+</body>
+</html>
